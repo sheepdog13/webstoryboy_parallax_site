@@ -220,6 +220,25 @@
             font-size: 12px;
             padding: 0px 20px;
         }
+
+        /* 한글자식 나오기 */
+        /* .split span {
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .split span.show {
+            opacity: 1;
+        } */
+
+        /* GSAP 한 글자씩 나오기 */
+        .split span{
+            opacity: 0;
+            transform: translateY(50px) rotate(234deg);
+            display: inline-block;
+            min-width: 1vw;
+        }
+
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100&display=swap" rel="stylesheet">
 </head>
@@ -397,13 +416,54 @@
         window.addEventListener("scroll", ()=>{
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || window.scrollY
 
-            if(scrollTop > document.getElementById("section1").offsetTop){
-                document.querySelectorAll("#section1 .split span").forEach((el,i)=>{
-                    setTimeout(() => {
-                        el.classList.add("show");
-                    }, 50 * i);
-                })
-            }
+            // if(scrollTop > document.getElementById("section1").offsetTop - window.innerHeight){
+            //     document.querySelectorAll("#section1 .split span").forEach((el,i)=>{
+            //         setTimeout(() => {
+            //             el.classList.add("show");
+            //         }, 50 * i);
+            //     })
+            // }
+            // if(scrollTop > document.getElementById("section2").offsetTop - window.innerHeight){
+            //     document.querySelectorAll("#section2 .split span").forEach((el,i)=>{
+            //         setTimeout(() => {
+            //             el.classList.add("show");
+            //         }, 50 * i);
+            //     })
+            // }
+            // if(scrollTop > document.getElementById("section3").offsetTop - window.innerHeight){
+            //     document.querySelectorAll("#section3 .split span").forEach((el,i)=>{
+            //         setTimeout(() => {
+            //             el.classList.add("show");
+            //         }, 50 * i);
+            //     })
+            // }
+
+            // for문
+            // for (let i = 1; i <= 9; i++){
+            //     if(scrollTop > document.getElementById("section"+i).offsetTop - window.innerHeight/2){
+            //         document.querySelectorAll("#section"+i+" .split span").forEach((el,index)=>{
+            //             setTimeout(() => {
+            //                 el.classList.add("show");
+            //             }, 50 * index);
+            //         })
+            //     }
+            // }
+
+            // forEach()
+
+            // gsap
+            document.querySelectorAll(".content__item").forEach((item, index) => {
+                if( scrollTop >= item.offsetTop ){
+                    gsap.to( item.querySelectorAll(".split span"), {
+                        duration: .5,
+                        opacity: 1,
+                        y: 0,
+                        stagger : .05,
+                        ease: "power4.out",
+                        rotation: 0
+                    });
+                }
+            });
         });
     </script>
 </body>
