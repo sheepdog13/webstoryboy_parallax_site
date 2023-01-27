@@ -421,7 +421,7 @@
             
             //each()
             $(".content__item").each((index)=>{
-                if(scrollTop >= $(".content__item").eq(index).offset().top){
+                if(scrollTop >= $(".content__item").eq(index).offset().top -2){
                     $(".paraDot ul li").eq(index).addClass("active").siblings().removeClass("active");
                 }
             });

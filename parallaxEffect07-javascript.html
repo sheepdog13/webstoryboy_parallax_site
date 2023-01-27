@@ -416,6 +416,23 @@
         window.addEventListener("scroll", ()=>{
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || window.scrollY
 
+            document.querySelectorAll(".paraNav ul li a").forEach((el)=>{
+                el.addEventListener("click",(e)=>{
+                    e.preventDefault();
+                    document.querySelector(el.getAttribute("href")).scrollIntoView({
+                        behavior:"smooth"
+                    })
+                });
+            });
+            
+            document.querySelectorAll(".content__item").forEach((item, index)=>{
+                if(scrollTop >= item.offsetTop -2){
+                    document.querySelectorAll(".paraNav ul li").forEach((li)=>{
+                        li.classList.remove("active");
+                    })
+                    document.querySelector(".paraNav ul li:nth-child("+(index+1)+")").classList.add("active");
+                }
+            });
             // if(scrollTop > document.getElementById("section1").offsetTop - window.innerHeight){
             //     document.querySelectorAll("#section1 .split span").forEach((el,i)=>{
             //         setTimeout(() => {
@@ -450,6 +467,15 @@
             // }
 
             // forEach()
+            // document.querySelectorAll(".content__item").forEach(item => {
+            //     if( scrollTop >= item.offsetTop ){
+            //         item.querySelectorAll(".split span").forEach((span, index) => {
+            //             setTimeout(() => {
+            //                 span.classList.add("show");
+            //             }, 50 * index)
+            //         })
+            //     }
+            // });
 
             // gsap
             document.querySelectorAll(".content__item").forEach((item, index) => {
@@ -464,6 +490,9 @@
                     });
                 }
             });
+
+            // 출력
+            document.querySelector(".paraScroll span").innerText = scrollTop;
         });
     </script>
 </body>
